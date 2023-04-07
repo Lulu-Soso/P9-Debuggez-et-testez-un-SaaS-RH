@@ -2,7 +2,6 @@
 /**
  * @jest-environment jsdom
  */
-
 import "@testing-library/jest-dom";
 
 import { screen, waitFor, getByTestId } from "@testing-library/dom";
