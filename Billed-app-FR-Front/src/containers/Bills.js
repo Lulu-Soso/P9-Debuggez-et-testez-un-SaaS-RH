@@ -2,8 +2,8 @@ import { ROUTES_PATH } from '../constants/routes.js'
 import { formatDate, formatStatus } from "../app/format.js"
 import Logout from "./Logout.js"
 
-export default class Bills {
-  // Le constructeur de la classe prend un objet en argument avec les clés suivantes : document, onNavigate, store et localStorage. 
+export default class {
+  // Le constructeur de la classe prend un objet en argument avec les clés suivantes : document, onNavigate, store et localStorage.
   // Il attache les gestionnaires d'événements aux éléments appropriés de la page.
   constructor({ document, onNavigate, store, localStorage }) {
     this.document = document
@@ -57,7 +57,7 @@ export default class Bills {
               }
             }
           })
-          .sort((a, b) => new Date(b.date) - new Date(a.date)); // Tri par ordre décroissant de date
+          // .sort((a, b) => new Date(b.date) - new Date(a.date)); // Tri par ordre décroissant de date
           console.log('length', bills.length)
         return bills
       })

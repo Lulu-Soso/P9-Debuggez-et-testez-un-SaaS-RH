@@ -90,7 +90,9 @@ export default class {
   handleClickIconEye = () => {
     const billUrl = $('#icon-eye-d').attr("data-bill-url")
     const imgWidth = Math.floor($('#modaleFileAdmin1').width() * 0.8)
-    $('#modaleFileAdmin1').find(".modal-body").html(`<div style='text-align: center;'><img width=${imgWidth} src=${billUrl} alt="Bill"/></div>`)
+    // const imgWidth = Math.floor($('#modaleFileAdmin1').width() * 0.5)
+    // $('#modaleFileAdmin1').find(".modal-body").html(`<div style='text-align: center;'><img width=${imgWidth} src=${billUrl} alt="Bill"/></div>`)
+    $('#modaleFileAdmin1').find(".modal-body").html(`<div style='text-align: center;' class="bill-proof-container"><img width=${imgWidth} src=${billUrl} alt="Bill"/></div>`)
     if (typeof $('#modaleFileAdmin1').modal === 'function') $('#modaleFileAdmin1').modal('show')
   }
 
@@ -142,50 +144,30 @@ export default class {
     this.onNavigate(ROUTES_PATH['Dashboard'])
   }
 
-  // 1- Méthode pour afficher les factures en fonction de leur statut
-  // handleShowTickets(e, bills, index) {
-  //   if (this.counter === undefined || this.index !== index) this.counter = 0
-  //   if (this.index === undefined || this.index !== index) this.index = index
-  //   if (this.counter % 2 === 0) {
-  //     $(`#arrow-icon${this.index}`).css({ transform: 'rotate(0deg)'})
-  //     $(`#status-bills-container${this.index}`)
-  //       .html(cards(filteredBills(bills, getStatus(this.index))))
-  //     this.counter ++
-  //   } else {
-  //     $(`#arrow-icon${this.index}`).css({ transform: 'rotate(90deg)'})
-  //     $(`#status-bills-container${this.index}`)
-  //       .html("")
-  //     this.counter ++
-  //   }
-
-  //   bills.forEach(bill => {
-  //     $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
-  //   })
-
-  //   return bills
-  // }
-
-  // 2- Méthode pour afficher les factures en fonction de leur statut
+  // Méthode pour afficher les factures en fonction de leur statut
   handleShowTickets(e, bills, index) {
-    if (!this.expandedLists) this.expandedLists = {}
-  
-    if (!this.expandedLists[index]) {
-      $(`#arrow-icon${index}`).css({ transform: 'rotate(0deg)' })
-      $(`#status-bills-container${index}`)
-        .html(cards(filteredBills(bills, getStatus(index))))
-      this.expandedLists[index] = true
+    if (this.counter === undefined || this.index !== index) this.counter = 0
+    if (this.index === undefined || this.index !== index) this.index = index
+
+    if (this.counter % 2 === 0) {
+      $(`#arrow-icon${this.index}`).css({transform: 'rotate(0deg)'})
+      $(`#status-bills-container${this.index}`)
+          .html(cards(filteredBills(bills, getStatus(this.index))))
+      this.counter++
+      // console.log(this.counter)
     } else {
-      $(`#arrow-icon${index}`).css({ transform: 'rotate(90deg)' })
-      $(`#status-bills-container${index}`)
-        .html("")
-      this.expandedLists[index] = false
+      $(`#arrow-icon${this.index}`).css({transform: 'rotate(90deg)'})
+      $(`#status-bills-container${this.index}`)
+          .html("")
+      this.counter++
     }
-  
-    bills.forEach(bill => {
-      $(`#open-bill${bill.id}`).off('click')
-      $(`#open-bill${bill.id}`).on('click', (e) => this.handleEditTicket(e, bill, bills))
+
+    // bills.forEach(bill => {
+    filteredBills(bills, getStatus(this.index)).forEach(bill => {
+      // console.log(filteredBills(bills, getStatus(this.index)))
+      $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
     })
-  
+
     return bills
   }
 
